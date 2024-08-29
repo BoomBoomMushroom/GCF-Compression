@@ -33,7 +33,7 @@ with open(dataFile, "rb") as f:
     byte = f.read()
     dataStr = binaryOfInt(int(byte.hex(), 16))
 
-splitEveryX = 1024
+splitEveryX = 512
 dataArr = splitStringEveryNChar(dataStr, splitEveryX)
 
 print("Data Arr: ", dataArr)
@@ -54,7 +54,7 @@ for i in range(len(intArr)):
     value = intArr[i]
     intPatches[-1].append(value)
 
-print("Int Patches: ", intPatches)
+#print("Int Patches: ", intPatches)
 
 zeroStreakInData = calcNumberMaxTimesCharacterAppearsInStringInRow(dataStr, "0")
 eof = "0" * zeroStreakInData
@@ -70,18 +70,19 @@ for patch in intPatches:
         outData += eof
         outData += binaryOfInt(value)
 
-    print("Old Patch, New Patch, GCD: ", patch, newPatch, gcd)
+    #print("Old Patch, New Patch, GCD: ", patch, newPatch, gcd)
 
 
 print(len(dataStr))
 print() # Buffer between the two
 print(len(outData))
 
+eofByteEncoded = binaryOfInt(zeroStreakInData).zfill(8)
+
 with open('./out.txt', 'wb') as f:
-    queue = ""
-    for char in outData:
-        queue += char
-        if len(queue) >= 8:
-            f.write(bytes(int(queue, 2)))
-            queue = ""
-    
+
+    for i in range(0, len(outData), 8):
+        byte_str = outData[i:i + 8]
+        # Convert each 8-bit chunk to a byte
+        byte = int(byte_str, 2)
+        f.write(bytes([byte]))
