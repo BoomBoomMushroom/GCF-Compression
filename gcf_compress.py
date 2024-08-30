@@ -89,3 +89,10 @@ with open('./out.txt', 'wb') as f:
         f.write(bytes([byte]))
         
         print("Writing: " + byte_str)
+
+
+print("Size of Data in: ", len(dataStr))
+print() # Buffer between the two
+print("Size of Data out: ", len(outData))
+
+print("EOF Size & EOF byte", zeroStreakInData, eofByteEncoded)
