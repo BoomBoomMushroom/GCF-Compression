@@ -79,10 +79,13 @@ print(len(outData))
 
 eofByteEncoded = binaryOfInt(zeroStreakInData).zfill(8)
 
-with open('./out.txt', 'wb') as f:
+print(eofByteEncoded)
 
+with open('./out.txt', 'wb') as f:
     for i in range(0, len(outData), 8):
         byte_str = outData[i:i + 8]
         # Convert each 8-bit chunk to a byte
         byte = int(byte_str, 2)
         f.write(bytes([byte]))
+        
+        print("Writing: " + byte_str)
