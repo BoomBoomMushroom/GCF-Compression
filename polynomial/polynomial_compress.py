@@ -5,8 +5,8 @@ import math
 # Some dummy placeholder data right now
 data = "01010101011101101001010011101000"
 
-dataFile = "compress.py"
-#data = "".join(f"{n:08b}" for n in open(dataFile, "rb").read())
+dataFile = "polynomial_compress.py"
+data = "".join(f"{n:08b}" for n in open(dataFile, "rb").read())
 
 # tack geeksforgeeks! https://www.geeksforgeeks.org/python-split-string-in-groups-of-n-consecutive-characters/#
 def splitStrEveryNCharacters(string, n=10):

@@ -68,6 +68,8 @@ for patch in intPatches:
 
     for value in newPatch:
         outData += eof
+        outData += binaryOfInt(gcd)
+        outData += eof
         outData += binaryOfInt(value)
 
     #print("Old Patch, New Patch, GCD: ", patch, newPatch, gcd)

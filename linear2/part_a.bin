@@ -1,0 +1,51 @@
+import precise_division
+
+import sys
+from fractions import Fraction
+
+def write_part(filename, data):
+    with open(filename, 'wb') as f:
+        f.write(data)
+
+def read_part(filename):
+    with open(filename, 'rb') as f:
+        return f.read()
+
+def save_quotient(filename, quotient):
+    with open(filename, 'w') as f:
+        f.write(str(quotient))
+
+def load_quotient(filename):
+    with open(filename, 'r') as f:
+        data = float(f.read())
+        return data
+
+def compress(part_a_file, part_b_file, quotient_file):
+    part_a = read_part(part_a_file)
+    part_b = read_part(part_b_file)
+    
+    # Convert binary data to integers
+    a = int.from_bytes(part_a, byteorder='big') / 128
+    b = int.from_bytes(part_b, byteorder='big') / 128
+    
+    if a == 0:
+        raise ZeroDivisionError("Part A cannot be zero for division.")
+    
+    # Calculate quotient B / A
+    #quotient = b / a
+    
+    # use my precise division algorithm
+    quotient = precise_division.divide(b, a)
+    
+    print(b, "\n\n")
+    
+    save_quotient(quotient_file, quotient)
+    
+    # Save Part A to a file
+    write_part(part_a_file, part_a)
+
+def decompress(part_a_file, quotient_file, recovered_b_file):
+    part_a = read_part(part_a_file)
+    quotient = load_quotient(quotient_file)
+    
+    # Conver
